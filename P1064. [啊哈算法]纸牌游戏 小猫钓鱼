@@ -1,0 +1,120 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<string.h>
+#include<errno.h>
+#include<stdlib.h>
+#include<math.h>
+#include<stdio.h>
+
+void S(int* m,int* n)
+{
+	m[*n] = 0;
+	(*n)++;
+}
+void P(int* m, int* c, int* t, int* k)
+{
+	if (*k != 0)
+	{
+		int tmp = *k, i, j, h,s;
+		h = c[tmp];
+		for (i = tmp - 1; i >= 0; i--)
+		{
+			if (h != c[i])
+			{
+			}
+			else
+			{
+				j = i;
+				for (s = tmp; s >= j; s--)
+				{
+					m[*t] = c[s];
+					c[s] = 0;
+					(*t)++;
+					(*k)--;
+				}
+			}
+		}
+	}
+}
+int main()
+{
+	int a[1000], b[1000],c[1000];
+	int i, j=0, k,t1=0,t2;
+	for (i = 0; i < 1000; i++)
+	{
+		a[i] = 0;
+		b[i] = 0;
+		c[i] = 0;
+	}
+	while ((k=getchar())!= '\n')
+	{
+		if (k != ' ')
+		{
+			a[j++] = k-48;
+		}
+	}
+	j = 0;
+	while ((k = getchar()) != '\n')
+	{
+		if (k != ' ')
+		{
+			b[j++] = k-48;
+		}
+	}
+	i = 0;
+	j = 0;
+	k = 0;
+	while (a[i] != 0)
+	{
+		i++;
+		t1++;
+	}
+	i = 0;
+	t2 = t1;
+	while (a[i]!=0&&b[j]!=0)
+	{
+		c[k] = a[i];
+		S(a,&i);
+		P(a, c,&t1,&k);
+		k++;
+		if (a[i] == 0)
+		{
+			break;
+		}
+		c[k] = b[j];
+		S(b,&j);
+		P(b,c,&t2,&k);
+		k++;
+	}
+	int tmp = k-1;
+	if (a[i] == 0)
+	{
+		printf("小哈win\n");
+		printf("小哈当前手中的牌是 ");
+		for (j; j < t2; j++)
+		{
+			printf("%d ", b[j]);
+		}
+		printf("\n");
+		printf("桌上的牌是 ");
+		for (k = 0; k <= tmp; k++)
+		{
+			printf("%d ", c[k]);
+		}
+	}
+	else
+	{
+		printf("小哼win\n");
+		printf("小哼当前手中的牌是 ");
+		for (i; i < t1; i++)
+		{
+			printf("%d ", a[i]);
+		}
+		printf("\n");
+		printf("桌上的牌是 ");
+		for (k = 0; k <= tmp; k++)
+		{
+			printf("%d ", c[k]);
+		}
+	}
+	return 0;
+}
